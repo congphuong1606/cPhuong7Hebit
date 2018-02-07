@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="contents">
+        <item>コピライト,1</item>
+        <item>とびら,3</item>
+        <item>組織人,5</item>
+        <item>プロ意識,13</item>
+        <item>パラダイム,15</item>
+        <item>自律,19</item>
+        <item>オーナーシップ,25</item>
+        <item>目的。意義,29</item>
+        <item>仕事の目的,31</item>
+        <item>自分にとっての意義,33</item>
+        <item>ソリーション,39</item>
+        <item>ポテンシャル,47</item>
+        <item>信頼,49</item>
+        <item>自分を磨く,53</item>
+        <item>3週間チャレンジ,59</item>
+        <item>まとめ,61</item>
+
+    </array>
+    <array name="menu">
+        <item>はじめに</item>
+        <item>プロフェッショナル</item>
+        <item>組織人</item>
+        <item>根も葉もあるプロになる</item>
+        <item>Discovery １\n「プロ意識」を見出す\nパラダイム</item>
+        <item>オーナーシップ</item>
+        <item>自律</item>
+        <item>Discovery 2\n「目的・意義」を見出す</item>
+        <item>仕事の目的</item>
+        <item>仕事の意義</item>
+        <item>Discovery 3\n「ソリューション」を見出す</item>
+        <item>ソリューションを考える上での\n４つのポイント</item>
+        <item>チームの成果（価値）を最大化する</item>
+        <item>Discovery 4\n「ポテンシャル」を見出す\n信頼</item>
+        <item>自分を磨く</item>
+        <item>行動計画</item>
+        <item>まとめ</item>
+        <item>初心表明</item>
+    </array>
+    <array name="font">
+        <item>file:///android_asset/Yu Gothic Medium.otf</item>
+        <item>file:///android_asset/Yu Mincho Medium.otf</item>
+        <item>file:///android_asset/Hiragino Kaku Gothic.otf</item>
+        <item>file:///android_asset/Hiragino Mincho.otf</item>
+        <item>file:///android_asset/Hiragino Maru Gothic.otf</item>
+    </array>
+    <array name="fontname">
+        <item>游ゴシック体 </item>
+        <item>游明朝体</item>
+        <item>ヒラギノ角ゴ</item>
+        <item>ヒラギノ明朝</item>
+        <item>ヒラギノ丸ゴ</item>
+    </array>
+
+</resources>
