@@ -27,7 +27,7 @@ public class StoreData {
 			editor = prefs.edit();
 		}
 		editor.putString(key, value);
-		editor.commit();
+		editor.apply();
 	}
 
 	public int getIntValue(String key) {
@@ -39,7 +39,7 @@ public class StoreData {
 			editor = prefs.edit();
 		}
 		editor.putInt(key, value);
-		editor.commit();
+		editor.apply();
 	}
 
 	public void removeKey(String key) {
@@ -47,7 +47,7 @@ public class StoreData {
 			editor = prefs.edit();
 		}
 		editor.remove(key);
-		editor.commit();
+		editor.apply();
 	}
 
 	public void setBooleanValue(String key, boolean value) {
@@ -55,7 +55,7 @@ public class StoreData {
 			editor = prefs.edit();
 		}
 		editor.putBoolean(key, value);
-		editor.commit();
+		editor.apply();
 	}
 
 	public boolean getBooleanValue(String key) {
@@ -80,7 +80,20 @@ public class StoreData {
 				editor = prefs.edit();
 			}
 			editor.remove(key);
-			editor.commit();
+			editor.apply();
 		}
 	}
+
+	public Float getFloat(String key) {
+		return prefs.getFloat(key, (float) 1.0);
+	}
+
+	public void setFloat(String key, Float value) {
+		if (editor == null) {
+			editor = prefs.edit();
+		}
+		editor.putFloat(key, value);
+		editor.apply();
+	}
+
 }

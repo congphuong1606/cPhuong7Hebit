@@ -32,6 +32,9 @@ public class ShowImageActivity extends BaseActivity implements View.OnTouchListe
 
 		strImage = getIntent().getStringExtra("image");
 		if (strImage!=null) {
+		if(strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%93.png")){
+			imageView.setImageResource(R.drawable.image52png);
+		}else {
 			if (strImage.startsWith("file://")) {
 				strImage = strImage.replaceFirst("file://", "");
 			}
@@ -40,6 +43,9 @@ public class ShowImageActivity extends BaseActivity implements View.OnTouchListe
 				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 				imageView.setImageBitmap(myBitmap);
 			}
+		}
+
+
 		}
 		imageView.setOnTouchListener(this);
 

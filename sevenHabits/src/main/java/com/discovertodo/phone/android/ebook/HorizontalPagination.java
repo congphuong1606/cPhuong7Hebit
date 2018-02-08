@@ -22,7 +22,8 @@ public class HorizontalPagination {
 
 	@SuppressLint("ClickableViewAccessibility")
 	public void canScrollHorizontalPager(final EpubWebView webView) {
-		if (!EpubWebView.isScroll) {webView.setOnTouchListener(new OnTouchListener() {
+		if (!EpubWebView.isScroll) {
+			webView.setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {

@@ -1,0 +1,325 @@
+{
+
+  "TextBolds": [
+    {
+      "nameClass":"s6 s7",
+      "position":0
+    },
+    {
+      "nameClass":"s1",
+      "position":0
+    },
+    {
+      "nameClass":"s1",
+      "position":1
+    },
+    {
+      "nameClass":"s1",
+      "position":2
+    },
+    {
+      "nameClass":"s1",
+      "position":3
+    },
+    {
+      "nameClass":"s1",
+      "position":4
+    },
+    {
+      "nameClass":"s1",
+      "position":5
+    },
+    {
+      "nameClass":"s1",
+      "position":6
+    },{
+      "nameClass":"s1",
+      "position":10
+    },
+    {
+      "nameClass":"s1",
+      "position":11
+    },
+    {
+      "nameClass":"s1",
+      "position":12
+    },
+    {
+      "nameClass":"s1",
+      "position":13
+    },
+    {
+      "nameClass":"s1",
+      "position":14
+    },
+    {
+      "nameClass":"s1",
+      "position":15
+    },
+    {
+      "nameClass":"s1",
+      "position":16
+    },{
+      "nameClass":"s1",
+      "position":7
+    },
+    {
+      "nameClass":"s1",
+      "position":8
+    },
+    {
+      "nameClass":"s1",
+      "position":9
+    }
+  ,
+    {
+      "nameClass":"s6",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"s6",
+      "position":1
+    }
+  ,
+    {
+      "nameClass":"s6",
+      "position":2
+    },   {
+      "nameClass":"s6",
+      "position":20
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":1
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":2
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":3
+    }
+  ,
+    {
+      "nameClass":"s5 s6",
+      "position":19
+    }
+  ,
+    {
+      "nameClass":"s5 s6",
+      "position":21
+    }
+  ,
+    {
+      "nameClass":"s5 s6",
+      "position":23
+    }
+  ,
+    {
+      "nameClass":"s5 s6",
+      "position":25
+    }
+  ,
+    {
+      "nameClass":"C1",
+      "position":16
+    }
+  ,
+    {
+      "nameClass":"C1",
+      "position":17
+    }
+  ,
+    {
+      "nameClass":"C1",
+      "position":18
+    }
+  ,
+    {
+      "nameClass":"C1",
+      "position":19
+    }
+  ,
+    {
+      "nameClass":"S6 S20",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"S9 S20",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"S9 s15",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"S9 s19",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"S9 s19",
+      "position":1
+    }
+  ,
+    {
+      "nameClass":"S9 s19",
+      "position":2
+    }
+  ],
+
+
+
+
+
+
+
+  "Image": [
+    {
+      "nameClass":"image-28",
+      "position":1
+    },
+    {
+      "nameClass":"image-39",
+      "position":0
+    }
+  ,
+    {
+      "nameClass":"image-14",
+      "position":0
+    }
+  ],
+
+  "TagClassHtmls": [
+    {
+      "nameClass":"s1",
+      "position":1
+    },
+    {
+      "nameClass":"s2 s3",
+      "position":0
+    },
+    {
+      "nameClass":"s1",
+      "position":3
+    },
+    {
+      "nameClass":"s1",
+      "position":4
+    },
+    {
+      "nameClass":"s1",
+      "position":5
+    },
+
+    {
+      "nameClass":"s1",
+      "position":6
+    },
+
+    {
+      "nameClass":"s1",
+      "position":7
+    },
+
+    {
+      "nameClass":"s1",
+      "position":8
+    },
+    {
+      "nameClass":"s1",
+      "position":9
+    },
+
+    {
+      "nameClass":"s1",
+      "position":10
+    },
+
+    {
+      "nameClass":"s1",
+      "position":11
+    },
+
+    {
+      "nameClass":"s1",
+      "position":12
+    },
+
+    {
+      "nameClass":"s1",
+      "position":13
+    },
+
+    {
+      "nameClass":"s1",
+      "position":14
+    },
+    {
+      "nameClass":"s1",
+      "position":5
+    },
+    {
+      "nameClass":"s1",
+      "position":16
+    }
+  ],
+  "Hidetags": [
+    {
+      "nameClass":"s1 s2",
+      "position":1
+    },
+    {
+      "nameClass":"s1 s2",
+      "position":0
+    },
+    {
+      "nameClass":"s4 s8",
+      "position":29
+    },
+
+    {
+      "nameClass":"s1 s2",
+      "position":27
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":26
+    }
+  ,
+    {
+      "nameClass":"s4 s8",
+      "position":25
+    },
+    {
+      "nameClass":"s4 s8",
+      "position":28
+    }
+  ,
+    {
+      "nameClass":"s4 s16",
+      "position":3
+    },
+    {
+      "nameClass":"s4 s10",
+      "position":14
+    }
+
+
+  ]
+
+}
