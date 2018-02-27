@@ -27,56 +27,58 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-@SuppressLint("SetJavaScriptEnabled")
+
 public class EpubWebView extends WebView {
     private int totalPageCount;
     private int currentPage;
     private int topP = 0;
     private float currentState;
     private EbookFragment ebookFragment;
-    private float textSize = (float) 0.6, MAX_TEXT_SIZE = (float) 1.0,
-            MIN_TEXT_SIZE = (float) 0.2;
+    private float textSize = (float) 0.8, MAX_TEXT_SIZE = (float) 1.2,
+            MIN_TEXT_SIZE = (float) 0.4;
     public static Boolean isScroll = false;
     public Context cont;
     private String jsonConfig;
     private StoreData storeData;
 
-    public void setImageZise(int height) {
-//		String reSizeImg1 = "var image1 = document.getElementById('image-1');"
-//				+ "image1.style.width = '20px';" +
-//				"image1.style.height = 'auto';";
-//		loadJavascript(this, "javascript:" + reSizeImg1);
+    @SuppressLint("SetJavaScriptEnabled")
+    public EpubWebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setHorizontalFadingEdgeEnabled(true);
+        cont = context;
+        jsonConfig = JsonUtils.getJson(cont);
+        initWebView();
+        getSettings().setJavaScriptEnabled(true);
+        getSettings().setSupportZoom(false);
+        getSettings().setBuiltInZoomControls(false);
+        getSettings().setDisplayZoomControls(false);
+        getSettings().setLoadsImagesAutomatically(true);
+        getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        setHorizontalScrollBarEnabled(false);
+        getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        setVerticalScrollBarEnabled(false);
+        getSettings().setAllowFileAccess(true);
+        getSettings().setAllowFileAccessFromFileURLs(true);
+        getSettings().setAllowContentAccess(true);
+        getSettings().setAllowUniversalAccessFromFileURLs(true);
+    }
+
+
+    @Override
+    public void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
+//        addJQueryJS();
+//        setWebViewClient(new MyWebClient(mContext));
+        super.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
 
     public static interface Callback {
         public void update();
     }
 
-    ;
 
     Callback call;
 
-    public EpubWebView(Context context) {
-        super(context);
-        cont = context;
-        jsonConfig = JsonUtils.getJson(cont);
 
-        initWebView();
-    }
-
-    public EpubWebView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        cont = context;
-        jsonConfig = JsonUtils.getJson(cont);
-        initWebView();
-    }
-
-    public EpubWebView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        cont = context;
-        jsonConfig = JsonUtils.getJson(cont);
-        initWebView();
-    }
 
     public String getJsonConfig() {
         return jsonConfig;
@@ -88,19 +90,8 @@ public class EpubWebView extends WebView {
         this.currentState = 0;
         storeData=new StoreData(cont);
 
-        // this.getSettings().setDefaultFontSize(textSize);
-        this.getSettings().setUseWideViewPort(false);
-        this.getSettings().setBuiltInZoomControls(false);
-        this.getSettings().setDisplayZoomControls(false);
-        this.getSettings().setJavaScriptEnabled(true);
-        // this.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-        // this.setOnLongClickListener(new OnLongClickListener() {
-        // @Override
-        // public boolean onLongClick(View v) {
-        // return true;
-        // }
-        // });
-        // this.setLongClickable(false);
+
+
     }
 
     public void goToPage(int pageNumber) {
@@ -153,7 +144,7 @@ public class EpubWebView extends WebView {
 
     public boolean setTextSizeIncrease() {
         textSize += 0.2;
-        storeData.setFloat("size",textSize);
+        storeData.setTextSize("textSize",textSize);
         String textSize1 = "document.body.style.fontSize = \"" + textSize
                 + "em\"";
         loadJavascript(this, "javascript:" + textSize1);
@@ -188,14 +179,15 @@ public class EpubWebView extends WebView {
                 updateCountPage();
             }
         }, 200);
-        if (textSize > MAX_TEXT_SIZE)
+        if
+                (textSize > MAX_TEXT_SIZE)
             return false;
         return true;
     }
 
     public boolean setTextSizeReduction() {
         textSize -= 0.2;
-        storeData.setFloat("size",textSize);
+        storeData.setTextSize("size",textSize);
         String textSize1 = "document.body.style.fontSize = \"" + textSize
                 + "em\"";
         loadJavascript(this, "javascript:" + textSize1);
@@ -241,7 +233,7 @@ public class EpubWebView extends WebView {
             WebView.HitTestResult result = EpubWebView.this.getHitTestResult();
             if (result.getType() == HitTestResult.IMAGE_TYPE) {
                 Intent intent = new Intent(ebookFragment.getActivity(), ShowImageActivity.class);
-                intent.putExtra("image", result.getExtra().toString());
+                intent.putExtra("image", String.valueOf(result.getExtra()));
                 ebookFragment.getActivity().startActivity(intent);
             }
         } catch (Exception e) {
@@ -252,9 +244,9 @@ public class EpubWebView extends WebView {
         String strSetWeight = "var colorPs = document.getElementsByTagName(\"*\");"
                 + "var colorLis = document.getElementsByTagName('Li');"
                 + "var colorSpans = document.getElementsByTagName('span');" +
-                "for(var i = 0; i < colorPs.length; i++){var e=colorPs[i];e.style.fontWeight='normal';}"
-                + "for(var i = 0; i < colorLis.length; i++){var a=colorPs[i];a.style.style.fontWeight='normal';}"
-                + "for(var i = 0; i < colorSpans.length; i++){var a=colorSpans[i];a.style.style.fontWeight='normal';}";
+                "for(var i = 0; i < colorPs.length; i++){var e=colorPs[i];e.style.fontWeight='normal';e.style.lineHeight='1.5';e.style.textDecoration='none';}"
+                + "for(var i = 0; i < colorLis.length; i++){var a=colorPs[i];a.style.fontWeight='normal';a.style.lineHeight='1.5';e.style.textDecoration='none';}"
+                + "for(var i = 0; i < colorSpans.length; i++){var c=colorSpans[i];c.style.fontWeight='normal';c.style.lineHeight='1.5';e.style.textDecoration='none';}";
         loadJavascript(this, strSetWeight);
         ArrayList<TagClassHtml> textbolds = new ArrayList<>();
         JSONArray lists = JsonUtils.getListJsonOject(JsonUtils.getJson(cont), "TextBolds");
@@ -266,9 +258,13 @@ public class EpubWebView extends WebView {
                 String srtSetBold = "var i=document.getElementsByClassName('" + nameclass + "')[" + position + "];" +
                         "i.style.fontWeight='bold';";
                 loadJavascript(this, "javascript:" + srtSetBold);
-
             }
         }
+
+
+        String setbold="var bold = document.getElementsByClassName('c1');"
+        + "for(var i = 0; i < bold.length; i++){var a=bold[i];a.style.fontWeight='bold';}";
+        loadJavascript(this, setbold);
 
 
     }
@@ -280,7 +276,7 @@ public class EpubWebView extends WebView {
                 "for(var i = 0; i < colorPs.length; i++){colorPs[i].style.color='gray';}" +
                 "for(var i = 0; i < colorPs.length; i++){colorSpans[i].style.color='gray';}"
                 + "for(var i = 0; i < colorLis.length; i++){colorLis[i].style.color='gray';}";
-        loadJavascript(this, setGrayColorString);
+        loadJavascript(EpubWebView.this, setGrayColorString);
     }
 
     public void changeTextColorToBlack() {
@@ -338,6 +334,7 @@ public class EpubWebView extends WebView {
         String strGetTop = getStringGetTop();
         setFontWeight();
         setfont();
+
         loadJavascript(this, "javascript:( function () { var resultSrc = document.documentElement.scrollWidth; window.HTMLOUT.scrollWidth(resultSrc); } ) ()");
         loadJavascript(this, "javascript:( function () { var resultSrc = document.documentElement.scrollHeight; window.HTMLOUT.scrollHeight(resultSrc); } ) ()");
         loadJavascript(this, "javascript:( function () { var resultSrc2 = document.getElementsByTagName('tbody')[0].parentElement.offsetTop; window.HTMLOUT.topTable(resultSrc2); } ) ()");

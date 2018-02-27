@@ -159,7 +159,7 @@
         <LinearLayout
             android:id="@+id/home_layout_top_search"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_smallx"
             android:layout_marginLeft="@dimen/margin_smallxxx"
             android:layout_marginRight="@dimen/margin_smallxxx"
@@ -185,11 +185,13 @@
                     android:src="@drawable/ic_action_search" />
 
                 <EditText
+                    android:gravity="center_vertical"
                     android:id="@+id/search"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:hint="検索"
+                    android:background="@null"
                     android:inputType="text"/>
 
                 <ImageView

@@ -96,11 +96,11 @@ public class ReadEpubUtil {
 	            	
 	                File oppath = new File(directory, rs.getHref());
 	                if(!oppath.exists()){
-	                	oppath.getParentFile().mkdirs();
-		                oppath.createNewFile();
-		                FileOutputStream fos = new FileOutputStream(oppath);
-		                fos.write(rs.getData());
-		                fos.close();
+//	                	oppath.getParentFile().mkdirs();
+//		                oppath.createNewFile();
+//		                FileOutputStream fos = new FileOutputStream(oppath);
+//		                fos.write(rs.getData());
+//		                fos.close();
 	                }else{
 	                	
 	                }

@@ -22,7 +22,8 @@ public class EpubWebViewClient extends WebViewClient {
 
     private Activity activity;
     private EpubWebView webView;
-    public static float widthWeb, heightWeb;
+    public static float widthWeb;
+    public static float heightWeb;
     public static int totalWidth;
     private int pageCount = 0;
     public static int[] arrMenu;
@@ -36,9 +37,6 @@ public class EpubWebViewClient extends WebViewClient {
     public EpubWebViewClient(Activity activity, EpubWebView webView) {
         this.activity = activity;
         this.webView = webView;
-
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
         MyJavaScriptInterface javaInterface = new MyJavaScriptInterface();
         webView.addJavascriptInterface(javaInterface, "HTMLOUT");
         data = new StoreData(activity);
@@ -55,59 +53,58 @@ public class EpubWebViewClient extends WebViewClient {
                 / activity.getResources().getDisplayMetrics().density;
         heightWeb = view.getMeasuredHeight()
                 / activity.getResources().getDisplayMetrics().density;
-
+        final EpubWebView myWebView = (EpubWebView) view;
         String varMySheet = "var mySheet = document.styleSheets[0];";
+
         String addCSSRule = "function addCSSRule(selector, newRule) {"
-                + "if (mySheet.addRule) {"
-                + "mySheet.addRule(selector, newRule);"
-                + "} else {"
                 + "ruleIndex = mySheet.cssRules.length;"
                 + "mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"
-                + "}" + "}";
-        String breakPage = "addCSSRule('p.div-pagebreak', '-webkit-column-break-after: always;')";
-        String insertRule2 = "addCSSRule('p', 'text-align: justify;border-style: solid; padding-top:0px; padding-left:20px;  padding-right:15px; ')";
-//        String insertRule3 = "addCSSRule('table, th, td', 'margin:5px 20px 5px 20px;')";
-//        String insertRule4 = "addCSSRule('p.dmManh', 'padding-top:10px; padding-bottom:10px;')";
-//        String setTextSizeRule = "addCSSRule('body', 'font-size: 120%;line-height:1;')";
-        String setHighlightColorRule = "addCSSRule('highlight', 'background-color: rgba(0,0,0,0);')";
 
-        EpubWebView.loadJavascript(view, "javascript:" + varMySheet);
-        EpubWebView.loadJavascript(view, "javascript:" + addCSSRule);
-//        EpubWebView.loadJavascript(view, "javascript:" + breakPage);
-        EpubWebView.loadJavascript(view, "javascript:" + insertRule2);
-//        EpubWebView.loadJavascript(view, "javascript:" + insertRule3);
-//        EpubWebView.loadJavascript(view, "javascript:" + insertRule4);
-//        EpubWebView.loadJavascript(view, "javascript:" + setTextSizeRule);
-        EpubWebView.loadJavascript(view, "javascript:" + setHighlightColorRule);
+                + "}";
+
+        final String insertRule1 = "addCSSRule('html', 'padding: 0px; height: "
+                + (myWebView.getMeasuredHeight() /  activity.getResources().getDisplayMetrics().density)
+                + "px; -webkit-column-gap: 0px; -webkit-column-width: "
+                + myWebView.getMeasuredWidth() + "px;')";
+
+        String breakPage = "addCSSRule('p.div-pagebreak', '-webkit-column-break-after: always;')";
+
+        String insertRule3 = "addCSSRule('table, th, td', 'margin:5px 20px 5px 20px;')";
+        String insertRule4 = "addCSSRule('p.dmManh', 'padding-top:10px; padding-bottom:10px;')";
+        String setTextSizeRule = "addCSSRule('body', 'font-size: 120%;line-height:5;')";
+        String setHighlightColorRule = "addCSSRule('highlight', 'background-color: rgba(0,0,0,0);')";
+        myWebView.loadUrl("javascript:" + varMySheet);
+        myWebView.loadUrl("javascript:" + addCSSRule);
         if (!EpubWebView.isScroll) {
-            final String insertRule1 = "addCSSRule('html', 'padding: 0px; height: "
-                    + heightWeb
-                    + "px; -webkit-column-gap: 0px; -webkit-column-width: "
-                    + widthWeb + "px;')";
+
             view.postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    EpubWebView.loadJavascript(view, "javascript:" + insertRule1);
+                    myWebView.loadUrl("javascript:" + insertRule1);
                 }
             }, 300);
         }
+        myWebView.loadUrl("javascript:" + breakPage);
+        myWebView.loadUrl("javascript:" + insertRule3);
+        myWebView.loadUrl("javascript:" + insertRule4);
+        myWebView.loadUrl( "javascript:" + setTextSizeRule);
+        myWebView.loadUrl("javascript:" + setHighlightColorRule);
+
+
+
+
+
+
+
 
         if (EpubWebView.isScroll) {
-//			try {
-//				//int height = (int) (heightWeb - EpubWebViewClient.arrListTagP[1]);
-//				String reSizeImg1 = "var image1 = document.getElementById('image-1');"
-//						+ "image.style.width = '"+widthWeb+"px';" +
-//						"image.style.height = 'auto';";
-//				EpubWebView.loadJavascript(view, "javascript:" + reSizeImg1);
-//			} catch (Exception e) {
-//			}
+
         }
 
 
         final String[] listFont = activity.getResources().getStringArray(
                 R.array.font);
-        // final String[] listFont = EbookFragment.getFont();
         String strNameFont = "";
         if (data.getStringValue("font").equalsIgnoreCase("")) {
             strNameFont = listFont[0];
@@ -116,7 +113,6 @@ public class EpubWebViewClient extends WebViewClient {
         }
         String strRunFont = "allp = document.getElementsByTagName('p');"
                 + "for (i = 0; i < allp.length; i++) { tagp = allp[i]; tagp.style.fontFamily = 'FontName';} ";
-
         final String strAddStyle = "var newStyle = document.createElement( 'style' );"
                 + "newStyle.appendChild( document.createTextNode( "
                 + "\"@font-face { "
@@ -128,23 +124,19 @@ public class EpubWebViewClient extends WebViewClient {
                 + " document.head.appendChild( newStyle ); "
                 + strRunFont;
         loadImage(view);
-
         ArrayList<TagClassHtml> hidetags = new ArrayList<>();
         JSONArray lists = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "Hidetags");
         hidetags = JsonUtils.getListObject(lists);
+        final String textSize1 = "document.body.style.fontSize = \""
+                + webView.getTextSize()+ "em\"";
+        String goToOffsetFunc = " function pageScroll(xOffset){ window.scroll(xOffset,0); } ";
         for (TagClassHtml tag : hidetags) {
             String nameClass = tag.getNameClass();
             String positon = String.valueOf(tag.getPosition());
             String hideTag = "var hideTag=document.getElementsByClassName('" + nameClass + "')[" + positon + "];" + "hideTag.style.display='none';";
             EpubWebView.loadJavascript(view, "javascript:" + hideTag);
         }
-
-
-        String goToOffsetFunc = " function pageScroll(xOffset){ window.scroll(xOffset,0); } ";
         EpubWebView.loadJavascript(view, "javascript:" + goToOffsetFunc);
-
-        final String textSize1 = "document.body.style.fontSize = \""
-                + webView.getTextSize()+ "em\"";
 
         EpubWebView.loadJavascript(view, "javascript:" + textSize1);
         EpubWebView.loadJavascript(view, "javascript:" + strAddStyle);
@@ -155,21 +147,27 @@ public class EpubWebViewClient extends WebViewClient {
                 ((EpubWebView) view).updateCountPage();
             }
         }, 500);
-
+        if (data.getIntValue("typelight") != 0) {
+            if(data.getIntValue("typelight")==3){
+               webView.changeTextColorToGray();
+            }else {
+                webView.changeTextColorToBlack();
+            }
+        }
     }
 
     private void loadImage(WebView view) {
         String image[] = new String[52];
-//. set hinh ảnh full w
+     //. set big image
         for (int i = 0; i <= 51; i++) {
             image[i] = "var imagefulls = document.getElementById('image-" + (i + 1) + "');"
-                    + "imagefulls.style.width = '" + widthWeb + "px';"
+                    + "imagefulls.style.width = '" + (widthWeb-20) + "px';"
                  +
                     "imagefulls.style.height = 'auto';";
             EpubWebView.loadJavascript(view, "javascript:" + image[i]);
         }
+// set line heght
 
-        //set nhwuxng hình ảnh có cỡ nhỏ
         int w = (int) (2 * (widthWeb / 3));
         int w4 = (int) (widthWeb / 4);
         ArrayList<TagClassHtml> images = new ArrayList<>();
@@ -179,8 +177,7 @@ public class EpubWebViewClient extends WebViewClient {
             String nameClass = tag.getNameClass();
             String imageSmall = "var imageSmalls = document.getElementById('" + nameClass + "');"
                     + "imageSmalls.style.width = '" + w + "px';"
-                   +
-                    "imageSmalls.style.height = 'auto';";
+                   + "imageSmalls.style.height = 'auto';";
             EpubWebView.loadJavascript(view, "javascript:" + imageSmall);
 
         }
@@ -240,9 +237,6 @@ public class EpubWebViewClient extends WebViewClient {
         @JavascriptInterface
         public void getTop(int[] value) {
             arrMenu = value;
-//			 for (int i = 0; i < arrMenu.length; i++) {
-//			 Log.e("DAT", i + "::" + arrMenu[i] + ">>.");
-//			 }
         }
 
         @JavascriptInterface
@@ -259,9 +253,6 @@ public class EpubWebViewClient extends WebViewClient {
             }
 
             arrListTagP = value;
-            // for (int i = 0; i < arrListTagP.length; i++) {
-            // Log.e("DAT", i + "::" + arrListTagP[i] + ">>.");
-            // }
         }
 
         @JavascriptInterface

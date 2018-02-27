@@ -1,6 +1,7 @@
 {
 
   "TextBolds": [
+
     {
       "nameClass":"s6 s7",
       "position":0
@@ -109,26 +110,26 @@
       "nameClass":"s4 s8",
       "position":3
     }
-  ,
-    {
-      "nameClass":"s5 s6",
-      "position":19
-    }
-  ,
-    {
-      "nameClass":"s5 s6",
-      "position":21
-    }
-  ,
-    {
-      "nameClass":"s5 s6",
-      "position":23
-    }
-  ,
-    {
-      "nameClass":"s5 s6",
-      "position":25
-    }
+//  ,
+//    {
+//      "nameClass":"s5 s6",
+//      "position":19
+//    }
+//  ,
+//    {
+//      "nameClass":"s5 s6",
+//      "position":21
+//    }
+//  ,
+//    {
+//      "nameClass":"s5 s6",
+//      "position":23
+//    }
+//  ,
+//    {
+//      "nameClass":"s5 s6",
+//      "position":25
+//    }
   ,
     {
       "nameClass":"C1",

@@ -33,7 +33,6 @@ android {
 
 dependencies {
     compile project(':main')
-    compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/epublib-core-latest.jar')
     compile files('libs/jsoup-1.8.3.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')

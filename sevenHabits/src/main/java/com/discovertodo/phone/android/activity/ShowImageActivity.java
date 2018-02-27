@@ -13,60 +13,70 @@ import android.view.View;
 import com.discovertodo.phone.android.R;
 import com.discovertodo.phone.android.model.TouchImageView;
 
-public class ShowImageActivity extends BaseActivity implements View.OnTouchListener{
-	
-	private TouchImageView imageView;
-	private String strImage;
-	long lasTimeClick = 0;
-	long firstTimeClick = 0;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_image_layout);
-		imageView = (TouchImageView) findViewById(R.id.showimage_image);
-		imageView.setMaxZoom(2.0f);
-		imageView.setMinZoom(0.5f);
-		int path = getIntent().getIntExtra("path",0);
-		imageView.setImageResource(path);
+public class ShowImageActivity extends BaseActivity implements View.OnTouchListener {
 
-		strImage = getIntent().getStringExtra("image");
-		if (strImage!=null) {
-		if(strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%93.png")){
-			imageView.setImageResource(R.drawable.image52png);
-		}else {
-			if (strImage.startsWith("file://")) {
-				strImage = strImage.replaceFirst("file://", "");
-			}
-			File imgFile = new File(strImage);
-			if (imgFile.exists()) {
-				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-				imageView.setImageBitmap(myBitmap);
-			}
-		}
+    private TouchImageView imageView;
+    private String strImage;
+    long lasTimeClick = 0;
+    long firstTimeClick = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.show_image_layout);
+        imageView = (TouchImageView) findViewById(R.id.showimage_image);
+        imageView.setMaxZoom(2.0f);
+        imageView.setMinZoom(0.5f);
+        int path = getIntent().getIntExtra("path", 0);
+        imageView.setImageResource(path);
+
+        strImage = getIntent().getStringExtra("image");
+        if (strImage != null) {
+            if (strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/x%EF%BC%94.png")) {
+                imageView.setImageResource(R.drawable.image48png);
+            }else if (strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%93.jpg")) {
+                imageView.setImageResource(R.drawable.image49png);
+            }else if (strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%92.jpg")) {
+                imageView.setImageResource(R.drawable.image50png);
+            }else if (strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%94.png")) {
+                imageView.setImageResource(R.drawable.image51png);
+            } else if (strImage.equals("file:///storage/emulated/0/SevenHabitsBooks/assets/images/%EF%BC%93.png")) {
+                imageView.setImageResource(R.drawable.image52png);
+            } else {
+                if (strImage.startsWith("file://")) {
+                    strImage = strImage.replaceFirst("file://", "");
+                }
+                File imgFile = new File(strImage);
+                if (imgFile.exists()) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageView.setImageBitmap(myBitmap);
+                }
+            }
 
 
-		}
-		imageView.setOnTouchListener(this);
+        }
+        imageView.setOnTouchListener(this);
 
-	}
-	
-	public void closeImage(View view){
-		finish();
-	}
+    }
 
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
+    public void closeImage(View view) {
+        finish();
+    }
 
-		switch (event.getAction()){
-			case MotionEvent.ACTION_DOWN: firstTimeClick = System.currentTimeMillis();break;
-			case MotionEvent.ACTION_UP:
-				if (firstTimeClick-lasTimeClick< 300){
-					finish();
-				}
-				lasTimeClick = firstTimeClick;
-				break;
-		}
-		return true;
-	}
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                firstTimeClick = System.currentTimeMillis();
+                break;
+            case MotionEvent.ACTION_UP:
+                if (firstTimeClick - lasTimeClick < 300) {
+                    finish();
+                }
+                lasTimeClick = firstTimeClick;
+                break;
+        }
+        return true;
+    }
 }

@@ -180,11 +180,8 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
             EpubWebView.isScroll = data.getBooleanValue("Scroll");
 
             setupLayout();
-//			final long a = System.currentTimeMillis();
-//
-//			final long b = System.currentTimeMillis();
-//			Toast.makeText(getActivity().getApplicationContext(),"THREAD: "+String.valueOf((b-a)/1000),Toast.LENGTH_LONG).show();
             setupValue();
+
             setupListener();
             onClick();
             Handler handler = new Handler();
@@ -210,8 +207,11 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         dataBookMark = new BookMarkTable(getActivity());
         adapter = new TabBookMarkAdapter(EbookFragment.this, listBookMark);
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+
 
     private void setTheme() {
 
@@ -297,7 +297,7 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
                                         + Environment
                                         .getExternalStorageDirectory()
                                         + "/SevenHabitsBooks/", htmlEpub,
-                                "text/html", "utf-8", null);
+                                "text/html", null, null);
 
                     }
                 });
@@ -615,19 +615,19 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
             tvNameFont.setText(listNameFont[data.getIntValue("fontId")]
                     .replace("/system/fonts/", "").replace(".ttf", ""));
         }
-        switch (type_light) {
-            case 1:
-                typeLightWhite();
-                break;
-            case 2:
-                typeLightSepia();
-                break;
-            case 3:
-                typeLightNight();
-                break;
-            default:
-                break;
-        }
+//        switch (type_light) {
+//            case 1:
+//                typeLightWhite();
+//                break;
+//            case 2:
+//                typeLightSepia();
+//                break;
+//            case 3:
+//                typeLightNight();
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     private void typeLightWhite() {
@@ -665,6 +665,7 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
         type_light = 2;
         setBackgroundFull(R.color.sepia, R.drawable.bg_popup_sepia);
         setSeekBarColor(R.color.brown);
+
         webView.changeTextColorToBlack();
 
         try {
@@ -1022,11 +1023,9 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
         listNumber.clear();
         final String[] list = getResources().getStringArray(R.array.contents);
         for (int i = 0; i < list.length; i++) {
-//			contents.add(new Content(list[i].toString().split(",")[0],list[i].toString().split(",")[1]));
-//			contents.add(new Content(list[i].toString().split(",")[0],list[i].toString().split(",")[1]));
             listMenu.add(list[i].toString().split(",")[0]);
             listNumber.add(EpubWebViewClient.arrMenu[i] / height);
-//			listMenu.add(list[i].toString());
+
         }
 
         TabMenuAdapter adapter = new TabMenuAdapter(activity, listMenu, listNumber);
@@ -1038,7 +1037,7 @@ public class EbookFragment extends BaseFragment implements SensorEventListener {
                                     int position, long id) {
 
                 offMenu();
-//				webView.goToPage(Integer.parseInt(contents.get(position).getPage())-1);
+
                 webView.goToPage(EpubWebViewClient.arrMenu[position] / finalHeight);
                 webView.updateSeekBar();
             }

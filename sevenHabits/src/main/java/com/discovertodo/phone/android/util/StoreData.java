@@ -84,11 +84,11 @@ public class StoreData {
 		}
 	}
 
-	public Float getFloat(String key) {
+	public Float getTextSize(String key) {
 		return prefs.getFloat(key, (float) 1.0);
 	}
 
-	public void setFloat(String key, Float value) {
+	public void setTextSize(String key, Float value) {
 		if (editor == null) {
 			editor = prefs.edit();
 		}
