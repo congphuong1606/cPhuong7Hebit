@@ -34,8 +34,8 @@ public class EpubWebView extends WebView {
     private int topP = 0;
     private float currentState;
     private EbookFragment ebookFragment;
-    private float textSize = (float) 0.8, MAX_TEXT_SIZE = (float) 1.2,
-            MIN_TEXT_SIZE = (float) 0.4;
+    private float textSize = (float) 1.0, MAX_TEXT_SIZE = (float) 2.0,
+            MIN_TEXT_SIZE = (float) 0.6;
     public static Boolean isScroll = false;
     public Context cont;
     private String jsonConfig;
@@ -251,7 +251,7 @@ public class EpubWebView extends WebView {
         ArrayList<TagClassHtml> textbolds = new ArrayList<>();
         JSONArray lists = JsonUtils.getListJsonOject(JsonUtils.getJson(cont), "TextBolds");
         textbolds = JsonUtils.getListObject(lists);
-        if (textbolds.size() >= 1) {
+        if (textbolds!=null) {
             for (TagClassHtml tagClassHtml : textbolds) {
                 String nameclass = tagClassHtml.getNameClass();
                 String position = String.valueOf(tagClassHtml.getPosition());
@@ -260,8 +260,9 @@ public class EpubWebView extends WebView {
                 loadJavascript(this, "javascript:" + srtSetBold);
             }
         }
-
-
+        String setTextNormal="var setTextNormal=document.getElementsByClassName('s3 S6')[0];setTextNormal.style.fontWeight='normal';"+
+                             "var e=document.getElementsByClassName('s5 s6')[16];e.style.fontWeight='normal';";
+        loadJavascript(this, setTextNormal);
         String setbold="var bold = document.getElementsByClassName('c1');"
         + "for(var i = 0; i < bold.length; i++){var a=bold[i];a.style.fontWeight='bold';}";
         loadJavascript(this, setbold);
@@ -287,6 +288,31 @@ public class EpubWebView extends WebView {
                 "for(var i = 0; i < colorPs.length; i++){colorSpans[i].style.color='black';}"
                 + "for(var i = 0; i < colorLis.length; i++){colorLis[i].style.color='black';}";
         loadJavascript(this, setBackColorString);
+        float textSize=getTextSize()-0.05f;
+        String setFontGray="var al=document.getElementsByClassName('s3');"+
+        "for(var i = 0; i < al.length; i++){"
+                +"if(i==25){"
+                +"var e=al[i];e.style.color='#515151';"
+                + "e.style.fontSize='"+(textSize+0.2f)+"em';"
+                +"}else{"
+                     +"var e=al[i];e.style.color='#515151';" +
+                "e.style.fontSize='"+textSize+"em';}}";//gray
+        loadJavascript(this, setFontGray);
+
+            ArrayList<TagClassHtml> textGrays = new ArrayList<>();
+            JSONArray list = JsonUtils.getListJsonOject(JsonUtils.getJson(cont), "textGrays");
+            textGrays = JsonUtils.getListObject(list);
+            if(textGrays!=null){
+                for (TagClassHtml tag : textGrays) {
+                    String nameClass = tag.getNameClass();
+                    String postion = String.valueOf(tag.getPosition());
+                    String setAlin = "var mLeft=document.getElementsByClassName('"+nameClass+"')["+postion+"];"+
+                            "mLeft.style.color='#515151';";
+                    EpubWebView.loadJavascript(this, "javascript:" + setAlin);
+
+                }
+            }
+
 
     }
 
@@ -387,13 +413,15 @@ public class EpubWebView extends WebView {
         JSONArray lists = JsonUtils.getListJsonOject(jsonConfig, "TagClassHtmls");
         menus = JsonUtils.getListObject(lists);
         String result = "var heighArray = [];";
-        if (menus.size() >= 1) {
-            for (int i = 1; i <= menus.size(); i++) {
-                String nameclass = menus.get(i - 1).getNameClass();
-                String positon = String.valueOf(menus.get(i - 1).getPosition());
-                String top = "heighArray.push(document.getElementsByClassName('" + nameclass + "')[" + positon + "].offsetTop + 5);";
-                result = result.concat(top);
+        if(menus!=null){
+            if (menus.size() >= 1) {
+                for (int i = 1; i <= menus.size(); i++) {
+                    String nameclass = menus.get(i - 1).getNameClass();
+                    String positon = String.valueOf(menus.get(i - 1).getPosition());
+                    String top = "heighArray.push(document.getElementsByClassName('" + nameclass + "')[" + positon + "].offsetTop + 5);";
+                    result = result.concat(top);
 
+                }
             }
         }
         return result;

@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class JsonUtils {
-    public  static String getJson(Context activity){
+    public static String getJson(Context activity) {
         String json = null;
         try {
             InputStream inputStream = activity.getAssets().open("ebook2018/config.json");
@@ -35,36 +35,46 @@ public class JsonUtils {
 
     public static JSONArray getListJsonOject(String jsonConfig, String tag) {
         JSONObject jsonObject = null;
-        JSONArray lists=null;
+
         try {
             jsonObject = new JSONObject(jsonConfig);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            lists = jsonObject.getJSONArray(tag);
+            JSONArray lists;
+            if (jsonObject != null) {
+                lists = jsonObject.getJSONArray(tag);
+                return lists;
+            } else return null;
+
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
-        return lists;
     }
 
     public static ArrayList<TagClassHtml> getListObject(JSONArray lists) {
-        ArrayList<TagClassHtml> list=new ArrayList<>();
-        for (int j=0; j < lists.length(); j++){
-            JSONObject tagClassHtml=null;
-            try {
-                tagClassHtml = lists.getJSONObject(j);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
+        if(lists!=null){
+            ArrayList<TagClassHtml> list = new ArrayList<>();
+            for (int j = 0; j < lists.length(); j++) {
+                JSONObject tagClassHtml = null;
+                try {
+                    tagClassHtml = lists.getJSONObject(j);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (tagClassHtml != null) {
+                        list.add(new TagClassHtml(tagClassHtml.getString("nameClass"), tagClassHtml.getInt("position")));
+                    }
 
-                list.add(new TagClassHtml(tagClassHtml.getString("nameClass"),tagClassHtml.getInt("position")));
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        return list;
+            return list;
+        }else return null;
+
     }
 }
