@@ -63,7 +63,7 @@ public class EpubWebViewClient extends WebViewClient {
                 + "}";
 
         final String insertRule1 = "addCSSRule('html', 'padding: 0px; height: "
-                + (myWebView.getMeasuredHeight() /  activity.getResources().getDisplayMetrics().density)
+                + (myWebView.getMeasuredHeight() / activity.getResources().getDisplayMetrics().density)
                 + "px; -webkit-column-gap: 0px; -webkit-column-width: "
                 + myWebView.getMeasuredWidth() + "px;')";
 
@@ -88,7 +88,7 @@ public class EpubWebViewClient extends WebViewClient {
         myWebView.loadUrl("javascript:" + breakPage);
         myWebView.loadUrl("javascript:" + insertRule3);
         myWebView.loadUrl("javascript:" + insertRule4);
-        myWebView.loadUrl( "javascript:" + setTextSizeRule);
+        myWebView.loadUrl("javascript:" + setTextSizeRule);
         myWebView.loadUrl("javascript:" + setHighlightColorRule);
 
 
@@ -115,12 +115,12 @@ public class EpubWebViewClient extends WebViewClient {
         loadImage(view);
         loadMarginLeft(view);
         loadTextCenter(view);
-      //  loadUnderLine(view);
+        //  loadUnderLine(view);
         ArrayList<TagClassHtml> hidetags = new ArrayList<>();
         JSONArray lists = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "Hidetags");
         hidetags = JsonUtils.getListObject(lists);
         final String textSize1 = "document.body.style.fontSize = \""
-                + webView.getTextSize()+ "em\"";
+                + webView.getTextSize() + "em\"";
         String goToOffsetFunc = " function pageScroll(xOffset){ window.scroll(xOffset,0); } ";
         for (TagClassHtml tag : hidetags) {
             String nameClass = tag.getNameClass();
@@ -139,9 +139,9 @@ public class EpubWebViewClient extends WebViewClient {
             }
         }, 500);
         if (data.getIntValue("typelight") != 0) {
-            if(data.getIntValue("typelight")==3){
-               webView.changeTextColorToGray();
-            }else {
+            if (data.getIntValue("typelight") == 3) {
+                webView.changeTextColorToGray();
+            } else {
                 webView.changeTextColorToBlack();
             }
         }
@@ -151,11 +151,11 @@ public class EpubWebViewClient extends WebViewClient {
         ArrayList<TagClassHtml> textUnderLines = new ArrayList<>();
         JSONArray list = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "underLines");
         textUnderLines = JsonUtils.getListObject(list);
-        if(textUnderLines!=null){
+        if (textUnderLines != null) {
             for (TagClassHtml tag : textUnderLines) {
                 String nameClass = tag.getNameClass();
                 String postion = String.valueOf(tag.getPosition());
-                String setAlin = "var mLeft=document.getElementsByClassName('"+nameClass+"')["+postion+"];"+
+                String setAlin = "var mLeft=document.getElementsByClassName('" + nameClass + "')[" + postion + "];" +
                         "mLeft.style.textAlign='center';";
                 EpubWebView.loadJavascript(view, "javascript:" + setAlin);
 
@@ -167,11 +167,11 @@ public class EpubWebViewClient extends WebViewClient {
         ArrayList<TagClassHtml> textAlignCenters = new ArrayList<>();
         JSONArray list = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "textAlignCenters");
         textAlignCenters = JsonUtils.getListObject(list);
-        if(textAlignCenters!=null){
+        if (textAlignCenters != null) {
             for (TagClassHtml tag : textAlignCenters) {
                 String nameClass = tag.getNameClass();
                 String postion = String.valueOf(tag.getPosition());
-                String setAlin = "var mLeft=document.getElementsByClassName('"+nameClass+"')["+postion+"];"+
+                String setAlin = "var mLeft=document.getElementsByClassName('" + nameClass + "')[" + postion + "];" +
                         "mLeft.style.textAlign='center';";
                 EpubWebView.loadJavascript(view, "javascript:" + setAlin);
 
@@ -183,11 +183,11 @@ public class EpubWebViewClient extends WebViewClient {
         ArrayList<TagClassHtml> listMarginLeft = new ArrayList<>();
         JSONArray list = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "marginLefts");
         listMarginLeft = JsonUtils.getListObject(list);
-        if(listMarginLeft!=null){
+        if (listMarginLeft != null) {
             for (TagClassHtml tag : listMarginLeft) {
                 String nameClass = tag.getNameClass();
                 String postion = String.valueOf(tag.getPosition());
-                String setMarginLeft = "var mLeft=document.getElementsByClassName('"+nameClass+"')["+postion+"];"+
+                String setMarginLeft = "var mLeft=document.getElementsByClassName('" + nameClass + "')[" + postion + "];" +
                         "mLeft.style.marginLeft='30px';";
                 EpubWebView.loadJavascript(view, "javascript:" + setMarginLeft);
 
@@ -196,11 +196,11 @@ public class EpubWebViewClient extends WebViewClient {
         ArrayList<TagClassHtml> listMarginLeft65px = new ArrayList<>();
         JSONArray list2 = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "marginLefts65px");
         listMarginLeft65px = JsonUtils.getListObject(list2);
-        if(listMarginLeft65px!=null){
+        if (listMarginLeft65px != null) {
             for (TagClassHtml tag : listMarginLeft65px) {
                 String nameClass = tag.getNameClass();
                 String postion = String.valueOf(tag.getPosition());
-                String setMarginLeft = "var mLeft=document.getElementsByClassName('"+nameClass+"')["+postion+"];"+
+                String setMarginLeft = "var mLeft=document.getElementsByClassName('" + nameClass + "')[" + postion + "];" +
                         "mLeft.style.marginLeft='60px';";
                 EpubWebView.loadJavascript(view, "javascript:" + setMarginLeft);
 
@@ -211,147 +211,157 @@ public class EpubWebViewClient extends WebViewClient {
 
     private void loadImage(WebView view) {
         String image[] = new String[52];
-     //. set big image
+        //. set big image
         for (int i = 0; i <= 51; i++) {
-            image[i] = "var imagefulls = document.getElementById('image-" + (i+1) + "');"
-                    + "imagefulls.style.width = '" + (widthWeb-20) + "px';"
-                 +
-                    "imagefulls.style.height = 'auto';";
-            EpubWebView.loadJavascript(view, "javascript:" + image[i]);
-        }
-        String imgae0 = "var imagefulls = document.getElementById('image-0');"
-                + "imagefulls.style.width = '" + (widthWeb-20) + "px';"
-                +
-                "imagefulls.style.height = 'auto';";
-        EpubWebView.loadJavascript(view, "javascript:" + imgae0);
-        //set small image
-        ArrayList<TagClassHtml> images = new ArrayList<>();
-        JSONArray listImage = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "Image");
-        images = JsonUtils.getListObject(listImage);
-        if(images!=null){
-            for (TagClassHtml tag : images) {
-                String nameClass = tag.getNameClass();
-                String imageSmall = "var imageSmalls = document.getElementById('" + nameClass + "');"
-                        + "imageSmalls.style.width = '" + (widthWeb-80) + "px';"
-                        + "imageSmalls.style.height = 'auto';";
-                EpubWebView.loadJavascript(view, "javascript:" + imageSmall);
-
+            if(i==51){
+                image[i] = "var hideTag2=document.getElementById('image-52');"
+                        + "hideTag2.style.height = '" + (int) (heightWeb - (heightWeb/4)) + "px';"
+                        + "hideTag2.style.width = 'auto';";
+            }else if (i == 13) {
+                image[i] = "var imagefulls = document.getElementById('image-" + (i + 1) + "');"
+                        + "imagefulls.style.width = '" + (widthWeb / 2) + "px';"
+                        +"imagefulls.style.height = 'auto';";
+            } else {
+                image[i] = "var imagefulls = document.getElementById('image-" + (i + 1) + "');"
+                        + "imagefulls.style.width = '" + (widthWeb - 20) + "px';"
+                        +
+                        "imagefulls.style.height = 'auto';";
             }
+          EpubWebView.loadJavascript(view, "javascript:" + image[i]);
+    }
+
+    String imgae0 = "var imagefulls = document.getElementById('image-0');"
+            + "imagefulls.style.width = '" + (widthWeb - 20) + "px';"
+            +
+            "imagefulls.style.height = 'auto';";
+        EpubWebView.loadJavascript(view,"javascript:"+imgae0);
+    //set small image
+    ArrayList<TagClassHtml> images = new ArrayList<>();
+    JSONArray listImage = JsonUtils.getListJsonOject(JsonUtils.getJson(activity), "Image");
+    images =JsonUtils.getListObject(listImage);
+        if(images!=null)
+
+    {
+        for (TagClassHtml tag : images) {
+            String nameClass = tag.getNameClass();
+            String imageSmall = "var imageSmalls = document.getElementById('" + nameClass + "');"
+                    + "imageSmalls.style.width = '" + (widthWeb - 80) + "px';"
+                    + "imageSmalls.style.height = 'auto';";
+            EpubWebView.loadJavascript(view, "javascript:" + imageSmall);
+
+        }
+    }
+
+
+
+}
+
+class MyJavaScriptInterface {
+
+    @JavascriptInterface
+    public void scrollWidth(String jsResult) {
+        totalWidth = Integer.valueOf(jsResult);
+    }
+
+    @JavascriptInterface
+    public void scrollHeight(String jsResult) {
+        totalHeight = Integer.valueOf(jsResult);
+        // Log.e("XXX scrollHeight", totalHeight + "");
+        if (totalHeight > totalWidth) {
+            pageCount = (int) ((float) totalHeight / heightWeb);
+        } else {
+            pageCount = (int) ((float) totalWidth / widthWeb);
         }
 
-        String image52 = "var hideTag2=document.getElementById('image-52');" + "hideTag2.style.width = '" + (int)(widthWeb/2)+ "px';"
-                +
-                "hideTag2.style.height = 'auto';";
-        EpubWebView.loadJavascript(view, "javascript:" + image52);
+        webView.setTotalPageCount(pageCount);
+
+        if (EpubWebView.isScroll) {
+            webView.getEbookFragment().getSeekBarVertical()
+                    .setMax(pageCount - 1);
+        } else
+            webView.getEbookFragment().getSeekBar().setMax(pageCount - 1);
+
+        // webView.goToPage(pageWebview());
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                }
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        webView.setVisibility(View.VISIBLE);
+                        DialogLoading.cancel();
+                    }
+                });
+            }
+
+            ;
+        }.start();
 
     }
 
-    class MyJavaScriptInterface {
+    @JavascriptInterface
+    public void getTop(int[] value) {
+        arrMenu = value;
+    }
 
-        @JavascriptInterface
-        public void scrollWidth(String jsResult) {
-            totalWidth = Integer.valueOf(jsResult);
-        }
-
-        @JavascriptInterface
-        public void scrollHeight(String jsResult) {
-            totalHeight = Integer.valueOf(jsResult);
-            // Log.e("XXX scrollHeight", totalHeight + "");
-            if (totalHeight > totalWidth) {
-                pageCount = (int) ((float) totalHeight / heightWeb);
-            } else {
-                pageCount = (int) ((float) totalWidth / widthWeb);
+    @JavascriptInterface
+    public void getTopTagP(int[] value) {
+        int count = 0;
+        int dem = 0;
+        for (int i = 213; i < 252; i++) {
+            if (count == 3) {
+                count = 0;
+                dem++;
             }
-
-            webView.setTotalPageCount(pageCount);
-
-            if (EpubWebView.isScroll) {
-                webView.getEbookFragment().getSeekBarVertical()
-                        .setMax(pageCount - 1);
-            } else
-                webView.getEbookFragment().getSeekBar().setMax(pageCount - 1);
-
-            // webView.goToPage(pageWebview());
-
-            new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                    }
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            webView.setVisibility(View.VISIBLE);
-                            DialogLoading.cancel();
-                        }
-                    });
-                }
-
-                ;
-            }.start();
-
+            value[i] = value[i] + topTable + dem * (heightTable / 13);
+            count++;
         }
 
-        @JavascriptInterface
-        public void getTop(int[] value) {
-            arrMenu = value;
-        }
+        arrListTagP = value;
+    }
 
-        @JavascriptInterface
-        public void getTopTagP(int[] value) {
-            int count = 0;
-            int dem = 0;
-            for (int i = 213; i < 252; i++) {
-                if (count == 3) {
-                    count = 0;
-                    dem++;
-                }
-                value[i] = value[i] + topTable + dem * (heightTable / 13);
-                count++;
-            }
+    @JavascriptInterface
+    public void getHeightP(int[] value) {
+        arrListHeightTagP = value;
 
-            arrListTagP = value;
-        }
-
-        @JavascriptInterface
-        public void getHeightP(int[] value) {
-            arrListHeightTagP = value;
-
-            if (EbookFragment.ischeckScroll) {
-                webView.goToPage(pageWebview());
-                EbookFragment.ischeckScroll = false;
-            } else {
-                int newCurr = (int) (webView.getCurrentState() * pageCount);
-                // if (!EpubWebView.isScroll) {
-                webView.goToPage(newCurr);
-                // } else {
-                // webView.updateView();
-                // }
-            }
-            webView.updateSeekBar();
-            webView.dismisDialog();
-        }
-
-        @JavascriptInterface
-        public void topTable(int value) {
-            // Log.e("DAT", "top:" + value);
-            topTable = value;
-        }
-
-        @JavascriptInterface
-        public void heightTable(int value) {
-            // Log.e("DAT", "height:" + value);
-            heightTable = value;
-        }
-
-        @JavascriptInterface
-        public void getSearch(int[] value) {
-            // for (int i = 0; i < value.length; i++) {
-            // Log.e("DAT", i + ":" + value[i] + ">>>");
+        if (EbookFragment.ischeckScroll) {
+            webView.goToPage(pageWebview());
+            EbookFragment.ischeckScroll = false;
+        } else {
+            int newCurr = (int) (webView.getCurrentState() * pageCount);
+            // if (!EpubWebView.isScroll) {
+            webView.goToPage(newCurr);
+            // } else {
+            // webView.updateView();
             // }
         }
-
+        webView.updateSeekBar();
+        webView.dismisDialog();
     }
+
+    @JavascriptInterface
+    public void topTable(int value) {
+        // Log.e("DAT", "top:" + value);
+        topTable = value;
+    }
+
+    @JavascriptInterface
+    public void heightTable(int value) {
+        // Log.e("DAT", "height:" + value);
+        heightTable = value;
+    }
+
+    @JavascriptInterface
+    public void getSearch(int[] value) {
+        // for (int i = 0; i < value.length; i++) {
+        // Log.e("DAT", i + ":" + value[i] + ">>>");
+        // }
+    }
+
+}
 
     private int pageWebview() {
         int height = 0;

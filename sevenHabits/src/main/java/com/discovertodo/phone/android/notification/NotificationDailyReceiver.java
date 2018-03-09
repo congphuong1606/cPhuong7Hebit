@@ -8,10 +8,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -67,13 +69,29 @@ public class NotificationDailyReceiver extends BroadcastReceiver {
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-            builder.setContentIntent(contentIntent)
-                    .setSmallIcon(R.drawable.ic_launcher)
-                    .setWhen(System.currentTimeMillis())
-                    .setAutoCancel(true)
-                    .setContentTitle(context.getString(R.string.app_name))
-                    .setContentText(text);
+            NotificationCompat.Builder builder;
+
+            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1){
+                builder = new NotificationCompat.Builder(context)
+                                .setContentIntent(contentIntent)
+                                .setSmallIcon(R.drawable.ic)
+                                .setColor(ContextCompat.getColor(context, R.color.blue))
+                                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
+                           .setWhen(System.currentTimeMillis())
+                           .setAutoCancel(true)
+                           .setContentTitle(context.getString(R.string.app_name))
+                            .setContentText(text);
+            }else {
+                builder = new NotificationCompat.Builder(context);
+                builder.setContentIntent(contentIntent)
+                        .setSmallIcon(R.drawable.ic)
+                        .setColor(ContextCompat.getColor(context, R.color.blue))
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
+                        .setWhen(System.currentTimeMillis())
+                        .setAutoCancel(true)
+                        .setContentTitle(context.getString(R.string.app_name))
+                        .setContentText(text);
+            }
             Notification notification = builder.build();
             notification.defaults |= Notification.DEFAULT_SOUND;
             notification.defaults |= Notification.DEFAULT_VIBRATE;

@@ -264,8 +264,16 @@ public class EpubWebView extends WebView {
                              "var e=document.getElementsByClassName('s5 s6')[16];e.style.fontWeight='normal';";
         loadJavascript(this, setTextNormal);
         String setbold="var bold = document.getElementsByClassName('c1');"
-        + "for(var i = 0; i < bold.length; i++){var a=bold[i];a.style.fontWeight='bold';}";
+        + "for(var i = 0; i < bold.length; i++){" +
+                "if(i>11&&i<20){"+
+                "var a=bold[i];a.style.fontWeight='bold';" +
+                "}}";
         loadJavascript(this, setbold);
+        String setUnderline="var underline = document.getElementsByClassName('c2');"
+                + "for(var i = 0; i < underline.length; i++){" +
+                "var a=underline[i];a.style.textDecoration='underline';a.style.textDecorationColor='gray';" +
+                "}";
+        loadJavascript(this, setUnderline);
 
 
     }
